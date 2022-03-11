@@ -18,9 +18,9 @@
                     <thead class="table-primary">
                     <tr>
                         <th class="col-sm-1">ID</th>
-                        <th class="col-sm-4">Tytuł</th>
-                        <th class="col-sm-5">Treść</th>
-                        <th class="col-sm-5">Autor</th>
+                        <th class="col-sm-2">Tytuł</th>
+                        <th class="col-sm-3">Treść</th>
+                        <th class="col-sm-2">Autor</th>
                         <th class="col-sm-2">Data utworzenia</th>
                         <th class="col-sm-2">Data edycji</th>
                     </tr>
@@ -28,10 +28,10 @@
                     <tbody>
                     @foreach ($posts as $post)
                         <tr>
-                            <td class="col-sm-4">{{ $post->id }}</td>
-                            <td class="col-sm-5">{{ $post->title }}</td>
-                            <td class="col-sm-5">{{ $post->content }}</td>
-                            <td class="col-sm-5">{{ $post->author }}</td>
+                            <td class="col-sm-1">{{ $post->id }}</td>
+                            <td class="col-sm-2">{{ $post->title }}</td>
+                            <td class="col-sm-3">{{ $post->content }}</td>
+                            <td class="col-sm-2">{{ $post->author }}</td>
                             <td class="col-sm-2">{{ $post->created_at}}</td>
                             <td class="col-sm-2">{{ $post->updated_at}}</td>
                         </tr>
@@ -44,8 +44,8 @@
 @endsection
 
 @section('js-scripts')
-    <script src="{{ asset('js/external/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('js/external/dataTables.bootstrap4.min.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <script>
         $(document).ready(function () {
             $('#posts_table').DataTable({
@@ -55,7 +55,7 @@
                 "bInfo": false,
                 "bAutoWidth": false,
                 language: {
-                    url: '{{ asset('language/Polish.json') }}'
+                    url: '{{ asset('//cdn.datatables.net/plug-ins/1.11.5/i18n/pl.json') }}'
                 }
             });
         });
