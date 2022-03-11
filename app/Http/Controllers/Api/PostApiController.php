@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostApiController extends Controller
@@ -14,7 +15,7 @@ class PostApiController extends Controller
      */
     public function index()
     {
-        //
+        return Post::all();
     }
 
     /**
@@ -25,7 +26,12 @@ class PostApiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request -> validate([
+            'title'=>'required|string',
+            'content'=>'required|string',
+            'author'=>'required|integer'
+        ]);
+        return Post::create($request->all());
     }
 
     /**

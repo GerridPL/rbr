@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Comment;
 
 class CommentApiController extends Controller
 {
@@ -14,7 +15,7 @@ class CommentApiController extends Controller
      */
     public function index()
     {
-        //
+        return Comment::all();
     }
 
     /**
@@ -25,7 +26,12 @@ class CommentApiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request -> validate([
+            'post_id'=>'required',
+            'content'=>'required',
+            'author'=>'required'
+        ]);
+        return Comment::create($request->all());
     }
 
     /**

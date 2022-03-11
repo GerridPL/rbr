@@ -13,7 +13,8 @@ class Post extends Model
 
     protected $fillable = [
         'title',
-        'content'
+        'content',
+        'author'
     ];
 
     public function post_comment_relation()
