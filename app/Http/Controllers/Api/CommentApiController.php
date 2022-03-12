@@ -24,7 +24,7 @@ class CommentApiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $request -> validate([
             'post_id'=>'required|integer',
@@ -47,7 +47,7 @@ class CommentApiController extends Controller
      * @param  Comment $comment
      * @return Comment
      */
-    public function show(Comment $comment)
+    public function show(Comment $comment): Comment
     {
         return $comment;
     }
