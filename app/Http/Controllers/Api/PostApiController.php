@@ -11,7 +11,7 @@ class PostApiController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Post[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Http\Response
      */
     public function index()
     {
@@ -22,49 +22,69 @@ class PostApiController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $request -> validate([
             'title'=>'required|string',
             'content'=>'required|string',
             'author'=>'required|integer'
         ]);
-        return Post::create($request->all());
+        $post = new Post();
+        $post->title = $request['title'];
+        $post->content = $request['content'];
+        $post->author = $request['author'];
+        $post->save();
+
+        return response()->json(["message" => "Success"], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Post $post
+     * @return Post
      */
-    public function show($id)
+    public function show(Post $post): Post
     {
-        //
+        return $post;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
-        //
+        $request -> validate([
+            'title'=>'required|string',
+            'content'=>'required|string',
+            'author'=>'required|integer'
+        ]);
+        $post = Post::findOrFail($id);
+        $post->title = $request['title'];
+        $post->content = $request['content'];
+        $post->author = $request['author'];
+        $post->update();
+
+        return response()->json(["message" => "Success"], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        return response()->json(["message" => "Success"], 200);
     }
 }
