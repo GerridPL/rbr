@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Comment;
+use App\Models\User;
 
-class CommentController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::get();
-        return view('comments', compact('comments'));
+        $users = User::get();
+        return view('users', compact('users'));
     }
 }
