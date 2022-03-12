@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\LogService;
+use App\Models\Log;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -15,6 +17,7 @@ class PostApiController extends Controller
      */
     public function index()
     {
+        LogService::logReadPost();
         return Post::all();
     }
 
@@ -37,6 +40,7 @@ class PostApiController extends Controller
         $post->author = $request['author'];
         $post->save();
 
+        LogService::logCreatePost();
         return response()->json(["message" => "Success"], 200);
     }
 
@@ -48,6 +52,7 @@ class PostApiController extends Controller
      */
     public function show(Post $post): Post
     {
+        LogService::logReadPost();
         return $post;
     }
 
@@ -71,6 +76,7 @@ class PostApiController extends Controller
         $post->author = $request['author'];
         $post->update();
 
+        LogService::logUpdatePost();
         return response()->json(["message" => "Success"], 200);
     }
 
@@ -85,6 +91,7 @@ class PostApiController extends Controller
         $post = Post::findOrFail($id);
         $post->delete();
 
+        LogService::logDeletePost();
         return response()->json(["message" => "Success"], 200);
     }
 }

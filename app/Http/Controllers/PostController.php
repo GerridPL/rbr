@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\LogService;
+use App\Models\Log;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -14,6 +16,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::get();
+        LogService::logReadPost();
         return view('posts', compact('posts'));
     }
 }

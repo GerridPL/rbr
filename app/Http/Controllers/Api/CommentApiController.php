@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use App\Http\Services\LogService;
 
 class CommentApiController extends Controller
 {
@@ -15,6 +16,7 @@ class CommentApiController extends Controller
      */
     public function index()
     {
+        LogService::logReadComment();
         return Comment::all();
     }
 
@@ -38,6 +40,7 @@ class CommentApiController extends Controller
         $comment->author = $request['author'];
         $comment->save();
 
+        LogService::logCreateComment();
         return response()->json(["message" => "Success"], 200);
     }
 
@@ -49,6 +52,7 @@ class CommentApiController extends Controller
      */
     public function show(Comment $comment): Comment
     {
+        LogService::logReadComment();
         return $comment;
     }
 
@@ -72,6 +76,7 @@ class CommentApiController extends Controller
         $comment->author = $request['author'];
         $comment->update();
 
+        LogService::logUpdateComment();
         return response()->json(["message" => "Success"], 200);
     }
 
@@ -86,6 +91,7 @@ class CommentApiController extends Controller
         $post = Comment::findOrFail($id);
         $post->delete();
 
+        LogService::logDeleteComment();
         return response()->json(["message" => "Success"], 200);
     }
 }
