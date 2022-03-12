@@ -58,7 +58,7 @@ class PostApiController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): \Illuminate\Http\JsonResponse
     {
         $request -> validate([
             'title'=>'required|string',
@@ -80,7 +80,7 @@ class PostApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(int $id)
+    public function destroy(int $id): \Illuminate\Http\JsonResponse
     {
         $post = Post::findOrFail($id);
         $post->delete();
