@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static findOrFail(int $id)
+ */
 class Comment extends Model
 {
     use HasFactory;
@@ -12,7 +15,9 @@ class Comment extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'content'
+        'content',
+        'post_id',
+        'author'
     ];
 
     public function comment_post_relation()
